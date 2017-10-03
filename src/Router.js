@@ -9,7 +9,7 @@ const RouterComponent = () => {
 		<Router>
 			<Scene key="main">
 				<Scene key="bus" component={EMTComponent} title="Autobuses EMT" initial navigationBarStyle={styles.navBarStyle} titleStyle={styles.navTitle}/>
-				<Scene key="busTimes" component={EMTDetailComponent} title="Detalle" navigationBarStyle={styles.navBarStyle} titleStyle={styles.navTitle} />
+				<Scene key="busTimes" component={EMTDetailComponent} title="Detalle" navigationBarStyle={styles.navBarStyle} titleStyle={styles.navTitle} navBarButtonColor="white" back={true}/>
 			</Scene>
 		</Router>
 	);

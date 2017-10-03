@@ -13,7 +13,8 @@ export const parseTimeFromStopNumber = (text, callback) => {
 	.then((response) => {
 		var xml = response._bodyText;
 		parseString(xml, function (err, result) {
-			var res = {status: true, payload: result};
+			var myArrives = result.Arrives.Arrive; //Array of objects.
+			var res = {status: true, payload: myArrives};
 		    callback(res);
 		});
 	})
