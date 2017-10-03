@@ -1,4 +1,4 @@
-const INITIAL_STATE = { busStopNumber: '', loading: false, arrives: {}};
+const INITIAL_STATE = { busStopNumber: '', loading: false, arrives: {}, isFavorite: false};
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type){
@@ -11,6 +11,10 @@ export default (state = INITIAL_STATE, action) => {
 		case 'ERROR_RESULTS':
 			//TODO!
 			return {...state};
+		case 'ADD_FAVORITE':
+			return {...state, isFavorite: true};
+		case 'REMOVE_FAVORITE':
+			return {...state, isFavorite: false};
 		default:
 			return state;
 	}

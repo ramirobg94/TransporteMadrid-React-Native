@@ -6,7 +6,6 @@ export const parseTimeFromStopNumber = (text, callback) => {
 
 	var serviceDetail = "getArriveStop?";
 	let finalURL = Constants.serviceURL+serviceDetail+"idClient="+Constants.serviceClient+"&passKey="+Constants.passKey+"&idStop="+text+"&statistics=&cultureInfo="
-
 	fetch(finalURL, {
 		method: 'GET'
 	})

@@ -8,9 +8,9 @@ import BusListItem from './BusListItem';
 class EMTDetailComponent extends Component {
 
 	componentWillMount() {
-		
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2, sectionHeaderHasChanged: (s1, s2) => s1 !== s2});
 		this.dataSource = ds.cloneWithRowsAndSections(this.mapArrives());
+
 	}
 
 	mapArrives() {
@@ -29,7 +29,6 @@ class EMTDetailComponent extends Component {
 	}
 
 	renderRow(arrive){
-		console.log(arrive);
 		return  <BusListItem arrive={arrive} />;
 	}
 
