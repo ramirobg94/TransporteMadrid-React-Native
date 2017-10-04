@@ -6,6 +6,13 @@ import { addFavorite, checkFavorite, resetFavorite } from '../actions';
 
 class FavoriteButton extends Component {
 	
+	constructor(props){
+		super(props)
+		this.state = {
+			isFavorite: props.isFavorite
+		}
+	}
+	
 	onPressButton(){
 		this.props.addFavorite(this.props.arrives);
 	}
