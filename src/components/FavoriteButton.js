@@ -40,12 +40,26 @@ class FavoriteButton extends Component {
 		}
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log(nextProps);
+		console.log(nextState);
+		return true;
+	}
+
 	render(){
+		console.log("rendering");
+		let source = null;
+		if (this.props.isFavorite){
+			console.log("returning filled");
+		    source= require('../images/star_filled.png');
+		}else{
+			console.log("returning empty");
+		    source=require('../images/star_empty.png');
+		}
+
 		return (
 			<TouchableHighlight onPress={this.onPressButton.bind(this)} underlayColor={Constants.blueColor}>
-		      {
-		      	this.getImage()
-		      }
+				<Image style={styles.button} source={source}/>
 		    </TouchableHighlight>
 		);
 	}

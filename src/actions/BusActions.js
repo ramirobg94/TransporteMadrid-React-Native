@@ -54,6 +54,7 @@ export const checkFavorite = (arrives) => {
 					var myStop = value.stopNumber;
 					if (stopNumber == myStop){
 						console.log("stopNumber "+stopNumber+" is equal to: "+myStop);
+						console.log("Activating favorite");
 						dispatch({type: 'ADD_FAVORITE'});
 						finished = true;
 					}
@@ -74,6 +75,18 @@ export const checkFavorite = (arrives) => {
 }
 
 
+function getStringLine(arrives) {
+	var myLinesArray = [];
+	arrives.forEach((value) => {
+		var idLine = value.idLine[0];
+		if (myLinesArray.indexOf(idLine) <= -1){
+			myLinesArray.push(idLine);
+		}
+	});
+	return myLinesArray.join();
+}
+
+
 export const addFavorite = (arrives) => {
 
 	//fav: {stopNumber:'XX', lines: 'XX,XX,XX', customName:''}
@@ -81,7 +94,7 @@ export const addFavorite = (arrives) => {
 		var stopNumber = arrives[0].IdStop[0];
 		//We have an array of favorites. [{...}, {....}]
 		AsyncStorage.getItem(Constants.favoritesKey).then((object) => {
-			if (object != "null" && object){
+			if (object != "empty" && object){
 				var myArray = JSON.parse(object);
 
 				//is it new or is it a delete?
@@ -95,7 +108,7 @@ export const addFavorite = (arrives) => {
 						//it's a delete.
 						copyArray.splice(index, 1);
 						if (copyArray.length == 0){
-							AsyncStorage.setItem(Constants.favoritesKey, "null").then(() => {
+							AsyncStorage.setItem(Constants.favoritesKey, "empty").then(() => {
 								dispatch({type: 'REMOVE_FAVORITE'});
 								return;
 							});
@@ -110,30 +123,15 @@ export const addFavorite = (arrives) => {
 				});
 				//it's new.
 				if (!isADelete){
-					var myLinesArray = [];
-					arrives.forEach((value) => {
-						var idLine = value.idLine[0];
-						if (myLinesArray.indexOf(idLine) <= -1){
-							myLinesArray.push(idLine);
-						}
-					});
-					var myFav = {stopNumber: stopNumber, lines: myLinesArray.join(), customName: ''};
+					var myFav = {stopNumber: stopNumber, lines: getStringLine(arrives), customName: ''};
 
 					myArray.push(myFav);
 					AsyncStorage.setItem(Constants.favoritesKey, JSON.stringify(myArray));
 					dispatch({type: 'ADD_FAVORITE'});
 				}
 				
-
 			}else{
-				var myLinesArray = [];
-				arrives.forEach((value) => {
-					var idLine = value.idLine[0];
-					if (myLinesArray.indexOf(idLine) <= -1){
-						myLinesArray.push(idLine);
-					}
-				});
-				var myFav = {stopNumber: stopNumber, lines: myLinesArray.join(), customName: ''};
+				var myFav = {stopNumber: stopNumber, lines: getStringLine(arrives), customName: ''};
 
 				var array = [];
 				array.push(myFav);
